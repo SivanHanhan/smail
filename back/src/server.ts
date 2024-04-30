@@ -1,10 +1,12 @@
 import express, { Express } from "express";
 import mailRouter from "./controllers/mailCrud";
 import bodyParser from "body-parser";
+import cors from "cors"
 import * as dotenv from "dotenv";
 dotenv.config();
 
 const app: Express = express();
+app.use(cors());
 app.set("view engine", "ejs");
 
 app.use(bodyParser.json());

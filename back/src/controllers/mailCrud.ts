@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app";
-import { addDoc, collection, getFirestore } from "firebase/firestore";
+import { addDoc, collection, getFirestore, getDocs} from "firebase/firestore";
 import config from "../config/firebase.config";
 import { pick } from "lodash";
 import express, { Router, Request, Response } from "express";
@@ -21,6 +21,18 @@ router.post("/", async (req: Request, res: Response) => {
     const docRef = await addDoc(mailRef, mail);
     console.log("Document written with ID: ", docRef.id);
     return res.send("New mail added to firebase DB.");
+  } catch (e: any) {
+    return res.status(400).send(e.message);
+  }
+});
+
+// get all data
+router.get("/", async (req: Request, res: Response) => {
+  try {
+    const docRef = await getDocs(mailRef);
+    const allMails = docRef.docs.map(doc => doc.data());
+
+    return res.send(allMails);
   } catch (e: any) {
     return res.status(400).send(e.message);
   }
