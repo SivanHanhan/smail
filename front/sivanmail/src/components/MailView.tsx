@@ -6,6 +6,8 @@ const MailView = () => {
         <div>
             <h1>My Mail</h1>
             <section style={{display:"flex", justifyContent:"space-around"}}>
+                {/* TODO: mails should be from the backend, need to use the correct route that already works with postman,
+                 to get all the mails and display them */}
             <MailList mails={mails}/>
             </section>
           
