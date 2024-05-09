@@ -22,8 +22,8 @@ const MailList = (props: MailListProps) => {
       }}
     >
       {props.mails.map((mail, index) => (
-        <>
-          <ListItem sx={{ width: "50rem" }} alignItems="flex-start" key={index}>
+        <div key={index}>
+          <ListItem sx={{ width: "50rem" }} alignItems="flex-start">
             <ListItemAvatar>
               <Avatar alt={mail.sender} src="/static/images/avatar/1.jpg" />
             </ListItemAvatar>
@@ -45,7 +45,7 @@ const MailList = (props: MailListProps) => {
             />
           </ListItem>
           <Divider style={{ width: "50rem" }} />
-        </>
+        </div>
       ))}
     </List>
   );

@@ -8,6 +8,7 @@ import {
   DialogActions,
   Button,
 } from "@mui/material";
+import axios from "axios";
 
 interface ComposeMailDialogProps {
   openMailDialog: boolean;
@@ -23,10 +24,19 @@ export const ComposeMailDialog = (props: ComposeMailDialogProps) => {
         component: "form",
         onSubmit: (event: React.FormEvent<HTMLFormElement>) => {
           event.preventDefault();
-          const formData = new FormData(event.currentTarget);
-          const formJson = Object.fromEntries((formData as any).entries());
-          const email = formJson.email;
-          console.log(email);
+          const mail = {
+            sender: "ronen",
+            reciever: "gadi",
+            data: "from web",
+            description: "a little story about fishing",
+            date: "today",
+          };
+
+          axios
+            .post("http://localhost:3000/mail/", mail)
+            .then((response) => console.log(response.data))
+            .then((error) => console.log(error));
+
           props.handleMailDialogClose();
         },
       }}
