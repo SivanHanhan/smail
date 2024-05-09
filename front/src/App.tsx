@@ -1,11 +1,11 @@
-import MailView from './components/MailView';
-import { TopBar } from './components/TopBar';
+import {MailView} from "./components/MailView";
+import { TopBar } from "./components/TopBar";
 
 function App() {
   return (
     <>
-        <TopBar/>
-        <MailView />
+      <TopBar />
+      <MailView />
     </>
   );
 }

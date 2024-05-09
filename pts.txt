@@ -1,8 +1,9 @@
 - add top bar
 - add mail :
-1. add button, with modal opening 
-2. sending request to server from the modal
+1. add button, with modal(dialog) opening 
+2. sending request to server from the modal to the existing route
 
+- redux with mails ( "fix" the current fetch of the mails) 
 - sign in screen? 
 - delete mail 
 - edit  

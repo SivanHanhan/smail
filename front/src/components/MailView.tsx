@@ -1,29 +1,51 @@
-import { useState, useEffect } from 'react';
-import MailList from './MailList'; // assuming MailList is in the same directory
+import { useState, useEffect } from "react";
+import MailList from "./MailList"; // assuming MailList is in the same directory
+import { Box, Button } from "@mui/material";
+import CreateIcon from "@mui/icons-material/Create";
+import React from "react";
+import { ComposeMailDialog } from "./ComposeMailDialog";
 // import {mails} from '../mails/mails'; // assuming mails.js is in the same directory
 
-const MailView = () => {
-    const [mails, setMails] = useState([]);
+export const MailView = () => {
+  const [mails, setMails] = useState([]);
+  const [openMailDialog, setOpenMailDialog] = React.useState(false);
 
-    useEffect(() => {
-        fetch('http://localhost:3000/mail/') // replace with your server URL and route
-            .then(response => response.json())
-            .then(data => setMails(data))
-            .catch(error => console.error('Error:', error));
-    }, []);
+  const handleMailDialogOpen = () => {
+    setOpenMailDialog(true);
+  };
 
-    console.log(mails);
+  const handleMailDialogClose = () => {
+    setOpenMailDialog(false);
+  };
 
-    return (
-        <div>
-            <h1>My Mail</h1>
-            <section style={{display:"flex", justifyContent:"space-around"}}>
-                {/* TODO: mails should be from the backend, need to use the correct route that already works with postman,
-                 to get all the mails and display them */}
-            <MailList mails={mails}/>
-            </section>
-        </div>
-    );
-}
+  useEffect(() => {
+    fetch("http://localhost:3000/mail/") // replace with your server URL and route
+      .then((response) => response.json())
+      .then((data) => setMails(data))
+      .catch((error) => console.error("Error:", error));
+  }, []);
 
-export default MailView;
+  console.log(mails);
+
+  return (
+    <>
+      <section style={{ display: "flex", justifyContent: "space-around" }}>
+        <Box sx={{ mt: "4rem" }}>
+          <MailList mails={mails} />
+          <Button
+            onClick={handleMailDialogOpen}
+            sx={{ mt: "2rem" }}
+            variant="outlined"
+            startIcon={<CreateIcon />}
+          >
+            Compose
+          </Button>
+        </Box>
+      </section>
+      <ComposeMailDialog
+        openMailDialog={openMailDialog}
+        handleMailDialogClose={handleMailDialogClose}
+      />
+    </>
+  );
+};

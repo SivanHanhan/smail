@@ -14,7 +14,7 @@ export const mails: Mail[] = [
         data: "Hi team, we have a meeting scheduled for Friday at 10am. Please make sure to attend."
     },
     {
-        title: "Reminder: Submit your timesheets",
+        title: "Reminder: Submit your timFesheets",
         sender: "John Doe",
         date: "2021-06-03",
         data: "Hi team, just a reminder to submit your timesheets by the end of the day. Let me know if you have any questions."
