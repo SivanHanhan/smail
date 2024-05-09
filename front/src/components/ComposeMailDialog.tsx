@@ -3,12 +3,12 @@ import {
   Dialog,
   DialogTitle,
   DialogContent,
-  DialogContentText,
-  TextField,
   DialogActions,
   Button,
 } from "@mui/material";
 import axios from "axios";
+import { useFormik } from "formik";
+import SendIcon from "@mui/icons-material/Send";
 
 interface ComposeMailDialogProps {
   openMailDialog: boolean;
@@ -16,6 +16,33 @@ interface ComposeMailDialogProps {
 }
 
 export const ComposeMailDialog = (props: ComposeMailDialogProps) => {
+  const formik = useFormik({
+    initialValues: {
+      sender: "",
+      reciever: "",
+      data: "",
+      description: "",
+    },
+    onSubmit: (values) => {
+      const mail = {
+        sender: values.sender,
+        reciever: values.reciever,
+        data: values.data,
+        description: values.description,
+        date: "today",
+      };
+
+      axios
+        .post("http://localhost:3000/mail/", mail)
+        .then((response) => console.log(response.data))
+        .then((error) => console.log(error));
+
+      props.handleMailDialogClose();
+
+      alert(JSON.stringify(values, null, 2));
+    },
+  });
+
   return (
     <Dialog
       open={props.openMailDialog}
@@ -24,44 +51,53 @@ export const ComposeMailDialog = (props: ComposeMailDialogProps) => {
         component: "form",
         onSubmit: (event: React.FormEvent<HTMLFormElement>) => {
           event.preventDefault();
-          const mail = {
-            sender: "ronen",
-            reciever: "gadi",
-            data: "from web",
-            description: "a little story about fishing",
-            date: "today",
-          };
-
-          axios
-            .post("http://localhost:3000/mail/", mail)
-            .then((response) => console.log(response.data))
-            .then((error) => console.log(error));
-
+          formik.handleSubmit();
           props.handleMailDialogClose();
         },
       }}
     >
-      <DialogTitle>Subscribe</DialogTitle>
+      <DialogTitle>Compose New Mail</DialogTitle>
       <DialogContent>
-        <DialogContentText>
-          To subscribe to this website, please enter your email address here. We
-          will send updates occasionally.
-        </DialogContentText>
-        <TextField
-          autoFocus
-          required
-          margin="dense"
-          id="name"
-          name="email"
-          label="Email Address"
-          type="email"
-          fullWidth
-          variant="standard"
+        <label htmlFor="firstName">sender</label>
+        <input
+          id="sender"
+          name="sender"
+          placeholder="John"
+          onChange={formik.handleChange}
+          value={formik.values.sender}
+        />
+
+        <label htmlFor="reciever">reciever</label>
+        <input
+          id="reciever"
+          name="reciever"
+          placeholder="Doe"
+          onChange={formik.handleChange}
+          value={formik.values.reciever}
+        />
+
+        <label htmlFor="email">subject</label>
+        <input
+          id="description"
+          name="description"
+          placeholder="subject"
+          onChange={formik.handleChange}
+          value={formik.values.description}
+        />
+
+        <label htmlFor="email">message</label>
+        <input
+          id="data"
+          name="data"
+          placeholder="the whole thing"
+          onChange={formik.handleChange}
+          value={formik.values.data}
         />
       </DialogContent>
       <DialogActions>
-        <Button onClick={props.handleMailDialogClose}>Cancel</Button>
-        <Button type="submit">Subscribe</Button>
+        <Button type="submit" variant="contained" endIcon={<SendIcon />}>
+          Send
+        </Button>
       </DialogActions>
     </Dialog>
   );
