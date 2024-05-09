@@ -2,6 +2,7 @@
 - add mail :
 1. add button, with modal(dialog) opening 
 2. sending request to server from the modal to the existing route
+3. add formik to send different mails
 
 - redux with mails ( "fix" the current fetch of the mails) 
 - sign in screen? 
