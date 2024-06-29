@@ -1,13 +1,14 @@
-import { useState, useEffect } from "react";
-import MailList from "./MailList"; // assuming MailList is in the same directory
+import { useContext } from "react";
+import MailList from "./MailList";
 import { Box, Button } from "@mui/material";
 import CreateIcon from "@mui/icons-material/Create";
 import React from "react";
 import { ComposeMailDialog } from "./ComposeMailDialog";
-// import {mails} from '../mails/mails'; // assuming mails.js is in the same directory
+import { GlobalContext } from "../contexts/GlobalContext";
 
 export const MailView = () => {
-  const [mails, setMails] = useState([]);
+  // const [mails, setMails] = useState([]);
+  const { mails } = useContext(GlobalContext);
   const [openMailDialog, setOpenMailDialog] = React.useState(false);
 
   const handleMailDialogOpen = () => {
@@ -18,12 +19,12 @@ export const MailView = () => {
     setOpenMailDialog(false);
   };
 
-  useEffect(() => {
-    fetch("http://localhost:3000/mail/") // replace with your server URL and route
-      .then((response) => response.json())
-      .then((data) => setMails(data))
-      .catch((error) => console.error("Error:", error));
-  }, []);
+  // useEffect(() => {
+  //   fetch("http://localhost:3000/mail/")
+  //     .then((response) => response.json())
+  //     .then((data) => setMails(data))
+  //     .catch((error) => console.error("Error:", error));
+  // }, []);
 
   console.log(mails);
 
