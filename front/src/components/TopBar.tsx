@@ -54,8 +54,8 @@ export const TopBar = () => {
         </Toolbar>
       </AppBar>
       <LogInDialog
-        openMailDialog={openLogInDialog}
-        handleMailDialogClose={handleLogInDialogClose}
+        openDialog={openLogInDialog}
+        handleClose={handleLogInDialogClose}
       />
       <SignUpDialog
         openSignUpDialog={openSignUpDialog}

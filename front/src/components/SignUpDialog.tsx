@@ -31,21 +31,9 @@ export const SignUpDialog = (props: SignUpDialogProps) => {
       };
 
       const response = await signUp(user);
-
-      //update context
-      //   onAdd(response.data);
-
       console.log(response.data);
       setUser(response.data.email);
-      //   onClose();
-
       props.handleClose();
-
-      //   axios
-      //     .post("http://localhost:3000/mail/", mail)
-      //     .then((response) => console.log(response.data))
-      //     .then((error) => console.log(error));
-
       alert(JSON.stringify(values, null, 2));
     },
   });

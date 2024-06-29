@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import {
   Dialog,
   DialogTitle,
@@ -6,97 +6,74 @@ import {
   DialogActions,
   Button,
 } from "@mui/material";
-import axios from "axios";
 import { useFormik } from "formik";
 import SendIcon from "@mui/icons-material/Send";
+import { logIn } from "../ApiService";
+import { GlobalContext } from "../contexts/GlobalContext";
 
 interface LogInDialogProps {
-  openMailDialog: boolean;
-  handleMailDialogClose: () => void;
+  openDialog: boolean;
+  handleClose: () => void;
 }
 
 export const LogInDialog = (props: LogInDialogProps) => {
-  const formik = useFormik({
-    initialValues: {
-      sender: "",
-      reciever: "",
-      data: "",
-      description: "",
-    },
-    onSubmit: (values) => {
-      const mail = {
-        sender: values.sender,
-        reciever: values.reciever,
-        data: values.data,
-        description: values.description,
-        date: "today",
-      };
+    const { setUser } = useContext(GlobalContext);
 
-      axios
-        .post("http://localhost:3000/mail/", mail)
-        .then((response) => console.log(response.data))
-        .then((error) => console.log(error));
-
-      props.handleMailDialogClose();
-
-      alert(JSON.stringify(values, null, 2));
-    },
-  });
+    const formik = useFormik({
+      initialValues: {
+        email: "",
+        password: "",
+      },
+      onSubmit: async (values) => {
+        const user = {
+          email: values.email,
+          password: values.password,
+        };
+  
+        const response = await logIn(user);
+        console.log(response.data);
+        setUser(response.data.email);
+        props.handleClose();
+        alert(JSON.stringify(values, null, 2));
+      },
+    });
 
   return (
     <Dialog
-      open={props.openMailDialog}
-      onClose={props.handleMailDialogClose}
+      open={props.openDialog}
+      onClose={props.handleClose}
       PaperProps={{
         component: "form",
         onSubmit: (event: React.FormEvent<HTMLFormElement>) => {
           event.preventDefault();
           formik.handleSubmit();
-          props.handleMailDialogClose();
+          props.handleClose();
         },
       }}
     >
-      <DialogTitle>Compose New Mail</DialogTitle>
+          <DialogTitle>Sign Up</DialogTitle>
       <DialogContent>
-        <label htmlFor="firstName">sender</label>
+        <label htmlFor="firstName">email</label>
         <input
-          id="sender"
-          name="sender"
-          placeholder="John"
+          id="email"
+          name="email"
+          placeholder="email"
           onChange={formik.handleChange}
-          value={formik.values.sender}
+          value={formik.values.email}
         />
 
-        <label htmlFor="reciever">reciever</label>
+        <label htmlFor="reciever">password</label>
         <input
-          id="reciever"
-          name="reciever"
-          placeholder="Doe"
+          id="password"
+          name="password"
+          placeholder="password"
           onChange={formik.handleChange}
-          value={formik.values.reciever}
-        />
-
-        <label htmlFor="email">subject</label>
-        <input
-          id="description"
-          name="description"
-          placeholder="subject"
-          onChange={formik.handleChange}
-          value={formik.values.description}
-        />
-
-        <label htmlFor="email">message</label>
-        <input
-          id="data"
-          name="data"
-          placeholder="the whole thing"
-          onChange={formik.handleChange}
-          value={formik.values.data}
+          value={formik.values.password}
         />
       </DialogContent>
       <DialogActions>
         <Button type="submit" variant="contained" endIcon={<SendIcon />}>
-          Send
+          Submit
         </Button>
       </DialogActions>
     </Dialog>
