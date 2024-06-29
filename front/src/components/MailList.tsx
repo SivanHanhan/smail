@@ -19,6 +19,7 @@ const MailList = (props: MailListProps) => {
         border: "1px solid blue",
         borderRadius: "12px",
         height: "30rem",
+        overflowY: "scroll",
       }}
     >
       {props.mails.map((mail, index) => (

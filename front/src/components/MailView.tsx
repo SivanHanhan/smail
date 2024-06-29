@@ -30,7 +30,7 @@ export const MailView = () => {
   return (
     <>
       <section style={{ display: "flex", justifyContent: "space-around" }}>
-        <Box sx={{ mt: "4rem" }}>
+        <Box sx={{ mt: "2rem" }}>
           <MailList mails={mails} />
           <Button
             onClick={handleMailDialogOpen}
