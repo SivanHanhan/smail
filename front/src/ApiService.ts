@@ -2,7 +2,7 @@ import axios from "axios";
 
 const api = async () => {
   const api = axios.create({
-    baseURL:  "http://localhost:3000/",
+    baseURL: "http://localhost:3000/",
   });
 
   return api;
@@ -11,6 +11,18 @@ const api = async () => {
 export const getMails = async () => {
   return await api().then(async (api) => {
     return api.get(`/mail`);
+  });
+};
+
+export const signUp = async (user) => {
+  return await api().then(async (api) => {
+    return api.post(`/user/signUp`, user);
+  });
+};
+
+export const logIn = async (user) => {
+  return await api().then(async (api) => {
+    return api.get(`/user/logIn`, user);
   });
 };
 
@@ -27,11 +39,11 @@ export const getMails = async () => {
 //   });
 // };
 
-// export const createBook = async (book) => {
-//   return await api().then(async (api) => {
-//     return api.post(`/books`, book);
-//   });
-// };
+export const createBook = async (book) => {
+  return await api().then(async (api) => {
+    return api.post(`/books`, book);
+  });
+};
 
 // export const deleteBook = async (id) => {
 //   return await api().then(async (api) => {
@@ -44,4 +56,3 @@ export const getMails = async () => {
 //     return api.get('/readingStatuses');
 //   });
 // };
-
