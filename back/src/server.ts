@@ -1,5 +1,6 @@
 import express, { Express } from "express";
 import mailRouter from "./controllers/mailCrud";
+import userRouter from "./controllers/userAuth";
 import bodyParser from "body-parser";
 import cors from "cors"
 import * as dotenv from "dotenv";
@@ -21,6 +22,7 @@ app.get("/", (req, res) => {
 });
 
 app.use("/mail", mailRouter);
+app.use("/user", userRouter);
 
 const port = process.env.PORT || 3000;
 

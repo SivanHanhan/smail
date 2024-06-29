@@ -5,16 +5,11 @@ import { pick } from "lodash";
 import express, { Router, Request, Response } from "express";
 const router: Router = express.Router();
 
-// Initialize Firebase
 const app = initializeApp(config.firebaseConfig);
-
-// Initialize Cloud Firestore and get a reference to the service
 const db = getFirestore(app);
-
-// Get reference to employee collection
 const mailRef = collection(db, "mails");
 
-// Add new data
+// Add new mail
 router.post("/", async (req: Request, res: Response) => {
   try {
     const mail = pick(req.body, ["sender", "reciever", "data", "description", "date"]);
@@ -26,7 +21,7 @@ router.post("/", async (req: Request, res: Response) => {
   }
 });
 
-// get all data
+// get all mails
 router.get("/", async (req: Request, res: Response) => {
   try {
     const docRef = await getDocs(mailRef);
