@@ -21,6 +21,7 @@ router.post("/signUp", async (req: Request, res: Response) => {
 router.get("/logIn", async (req: Request, res: Response) => {
   try {
     const userCredential = await signInWithEmailAndPassword(auth, req.body.email, req.body.password);
+    // const users = awaut auth().listUsers();
     console.log("User logged in, user: ", userCredential.user);
     res.send(userCredential.user);
   } catch (e: any) {
