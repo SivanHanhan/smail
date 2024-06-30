@@ -5,7 +5,7 @@ const GlobalContext = createContext({
   mails: [],
   user: "",
   setMails: () => {},
-  setUser: () => {},
+  setUser: (user: string) => {},
 });
 
 const ContextProvider = ({ children }) => {

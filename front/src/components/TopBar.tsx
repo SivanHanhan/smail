@@ -38,7 +38,7 @@ export const TopBar = () => {
             edge="start"
             color="inherit"
             aria-label="menu"
-            sx={{ mr: 2 }}
+            sx={{ mr: 2, pointerEvents: "none"}}
           >
             <MenuIcon />
           </IconButton>

@@ -52,7 +52,7 @@ export const LogInDialog = (props: LogInDialogProps) => {
         },
       }}
     >
-      <DialogTitle>Sign Up</DialogTitle>
+      <DialogTitle>Log In</DialogTitle>
       <DialogContent>
         <TextField
           label={"email"}
