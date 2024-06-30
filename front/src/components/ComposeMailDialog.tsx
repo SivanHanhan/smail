@@ -5,6 +5,7 @@ import {
   DialogContent,
   DialogActions,
   Button,
+  TextField,
 } from "@mui/material";
 import axios from "axios";
 import { useFormik } from "formik";
@@ -58,40 +59,43 @@ export const ComposeMailDialog = (props: ComposeMailDialogProps) => {
     >
       <DialogTitle>Compose New Mail</DialogTitle>
       <DialogContent>
-        <label htmlFor="firstName">sender</label>
-        <input
-          id="sender"
-          name="sender"
-          placeholder="John"
-          onChange={formik.handleChange}
+        <TextField
+          label={"sender email"}
+          variant="outlined"
+          fullWidth
           value={formik.values.sender}
-        />
-
-        <label htmlFor="reciever">reciever</label>
-        <input
-          id="reciever"
-          name="reciever"
-          placeholder="Doe"
           onChange={formik.handleChange}
+          name={"sender"}
+          sx={{ mt: 2 }}
+        />
+        <TextField
+          label={"reciever email"}
+          variant="outlined"
+          fullWidth
           value={formik.values.reciever}
-        />
-
-        <label htmlFor="email">subject</label>
-        <input
-          id="description"
-          name="description"
-          placeholder="subject"
           onChange={formik.handleChange}
+          name={"reciever"}
+          sx={{ mt: 2 }}
+        />
+        <TextField
+          label={"subject"}
+          variant="outlined"
+          fullWidth
           value={formik.values.description}
-        />
-
-        <label htmlFor="email">message</label>
-        <input
-          id="data"
-          name="data"
-          placeholder="the whole thing"
           onChange={formik.handleChange}
+          name={"description"}
+          sx={{ mt: 2 }}
+        />
+        <TextField
+          label={"message"}
+          variant="outlined"
+          fullWidth
           value={formik.values.data}
+          onChange={formik.handleChange}
+          name={"data"}
+          multiline
+          maxRows={4}
+          sx={{ mt: 2 }}
         />
       </DialogContent>
       <DialogActions>

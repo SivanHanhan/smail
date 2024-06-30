@@ -5,6 +5,7 @@ import {
   DialogContent,
   DialogActions,
   Button,
+  TextField,
 } from "@mui/material";
 import { useFormik } from "formik";
 import SendIcon from "@mui/icons-material/Send";
@@ -17,26 +18,26 @@ interface LogInDialogProps {
 }
 
 export const LogInDialog = (props: LogInDialogProps) => {
-    const { setUser } = useContext(GlobalContext);
+  const { setUser } = useContext(GlobalContext);
 
-    const formik = useFormik({
-      initialValues: {
-        email: "",
-        password: "",
-      },
-      onSubmit: async (values) => {
-        const user = {
-          email: values.email,
-          password: values.password,
-        };
-  
-        const response = await logIn(user);
-        console.log(response.data);
-        setUser(response.data);
-        props.handleClose();
-        alert(JSON.stringify(values, null, 2));
-      },
-    });
+  const formik = useFormik({
+    initialValues: {
+      email: "",
+      password: "",
+    },
+    onSubmit: async (values) => {
+      const user = {
+        email: values.email,
+        password: values.password,
+      };
+
+      const response = await logIn(user);
+      console.log(response.data);
+      setUser(response.data);
+      props.handleClose();
+      alert(JSON.stringify(values, null, 2));
+    },
+  });
 
   return (
     <Dialog
@@ -51,24 +52,25 @@ export const LogInDialog = (props: LogInDialogProps) => {
         },
       }}
     >
-          <DialogTitle>Sign Up</DialogTitle>
+      <DialogTitle>Sign Up</DialogTitle>
       <DialogContent>
-        <label htmlFor="firstName">email</label>
-        <input
-          id="email"
-          name="email"
-          placeholder="email"
-          onChange={formik.handleChange}
+        <TextField
+          label={"email"}
+          variant="outlined"
+          fullWidth
           value={formik.values.email}
-        />
-
-        <label htmlFor="reciever">password</label>
-        <input
-          id="password"
-          name="password"
-          placeholder="password"
           onChange={formik.handleChange}
+          name={"email"}
+          sx={{ mt: 2 }}
+        />
+        <TextField
+          label={"password"}
+          variant="outlined"
+          fullWidth
           value={formik.values.password}
+          onChange={formik.handleChange}
+          name={"password"}
+          sx={{ mt: 2 }}
         />
       </DialogContent>
       <DialogActions>
