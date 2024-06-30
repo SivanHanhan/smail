@@ -33,4 +33,19 @@ router.get("/", async (req: Request, res: Response) => {
   }
 });
 
+// get mails by email
+router.get("/user/:email", async (req: Request, res: Response) => {
+  try {
+    const { email } = req.params;
+    console.log("email", email);
+    const docRef = await getDocs(mailRef);
+    const allMails = docRef.docs.map(doc => doc.data());
+    console.log("body", req.body);
+
+    return res.send(allMails.filter(mail => mail.reciever === email));
+  } catch (e: any) {
+    return res.status(400).send(e.message);
+  }
+}); 
+
 export default router;
