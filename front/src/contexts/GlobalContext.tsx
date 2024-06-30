@@ -1,5 +1,5 @@
 import React, { createContext, useState, useEffect } from 'react';
-import { getMails } from '../ApiService';
+import { getMails, getMailsOfUser } from '../ApiService';
 
 const GlobalContext = createContext({
   mails: [],
@@ -15,7 +15,7 @@ const ContextProvider = ({ children }) => {
   useEffect(() => {
     const fetchMails = async () => {
       try {
-        const response = await getMails();
+        const response = await getMailsOfUser(user);
         const data = response.data;
         setMails(data);
       } catch (error) {
@@ -24,7 +24,7 @@ const ContextProvider = ({ children }) => {
     };
 
     fetchMails();
-  }, []);
+  }, [user]);
 
   return (
     <GlobalContext.Provider value={{ mails, user, setUser }}>
