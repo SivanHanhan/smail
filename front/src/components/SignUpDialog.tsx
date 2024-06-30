@@ -32,7 +32,7 @@ export const SignUpDialog = (props: SignUpDialogProps) => {
 
       const response = await signUp(user);
       console.log(response.data);
-      setUser(response.data.email);
+      setUser(response.data);
       props.handleClose();
       alert(JSON.stringify(values, null, 2));
     },
